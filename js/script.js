@@ -82,17 +82,17 @@ function displaytodolist(){
 
 
 var count = 0;
-function taskMessage(cnt){
-    if(cnt == 5){
+function taskMessage(ticked){
+    if(ticked == 5){
         alert("You Have completed 5 tasks succesfuly");
     }
 }
 
 function checkNumbers(){
-    var chkBox = this;
+    var status = this;
     
     let checkNumbersPromise = new Promise(function(resolve,reject){
-        if(chkBox.checked == true) {
+        if(status.checked == true) {
             resolve(++count);
         }
         else {
