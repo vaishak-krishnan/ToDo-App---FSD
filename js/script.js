@@ -47,8 +47,8 @@ function displaytodolist(){
                 var list = document.createElement('li');
                 list.setAttribute("class","list-group-item");
 
-                var dvlist = document.createElement('div');
-                dvlist.setAttribute("class","custom-control custom-checkbox");
+                var divlist = document.createElement('div');
+                divlist.setAttribute("class","custom-control custom-checkbox");
                 
                 var checkbox = document.createElement('input');
                 checkbox.setAttribute("class","custom-control-input");
@@ -70,9 +70,9 @@ function displaytodolist(){
                 label.htmlFor = 'check_box' + data[i].id;
                 label.appendChild(document.createTextNode(data[i].title));                                
                 
-                dvlist.appendChild(checkbox);
-                dvlist.appendChild(label);
-                list.appendChild(dvlist);
+                divlist.appendChild(checkbox);
+                divlist.appendChild(label);
+                list.appendChild(divlist);
                 ulcontainer.appendChild(list);
             }               
         }
