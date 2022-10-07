@@ -1,43 +1,107 @@
-let button = document.getElementById('button')
-console.log(button);
-let name,password,messge,form;
-form = document.getElementById('login_form');
+function validateform(callback) {
+    var uname = document.getElementById("username");
+    var pswd = document.getElementById("password");
+    var err = document.getElementById("errmsg");
 
-button.addEventListener('click', (e)=>{
-
-    name = document.getElementById('name').value;
-    password = document.getElementById('password').value;
-
-    validateForm(name,password,(messge)=>{
-        alert(messge);
-    })
-   
-
-})
-
-
-// let validateForm = (name,password,callback) => {
-//     if(name == "" || password == ""){
-//         callback("Please enter all the fields")
-//     }else if(name.length < 4){
-//         callback("name should be atleast 4 charecters")
-//     }else if(password.length < 5){
-//         callback("password should be atleast 5 charecters")
-//     }else if(name == "admin" && password == "12345"){
-//         callback("Login Succes")
-//         window.location.href = form.getAttribute("action")
-//         return false;
-//     }
-// }
-
-let validateForm = (name,password,callback) => {
-    if(name == "admin" && password == "12345"){
-        callback("Login Succes")
-        window.location.href = "main.html"
-
-        }
-        else{
-        callback("invalid details")
+    if(uname.value.trim() === ""){
+        err.innerHTML ="Please enter Username";
+        uname.focus();
     }
+    else if (pswd.value.trim() === ""){
+        err.innerHTML = "Please enter Password";
+        pswd.focus();
+    }
+    else if(uname.value != 'admin' || pswd.value != '12345'){
+        err.innerHTML = "Username or password not matching.";
+    }
+    else {
+        callback();
+    }
+}
+
+function loginsuccess(){
+    window.location.replace("main.html");
+}
+
+// todo page logout link click event for redirect to login page
+function logout(){
+    window.location.replace("index.html");
+}
+
+
+
+function displaytodolist(){  
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET","https://jsonplaceholder.typicode.com/todos",true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const data = JSON.parse(this.responseText);            
+            var ulcontainer = document.getElementById('todolist');
+
+            for (var i=0;i<data.length;i++){
+                var list = document.createElement('li');
+                list.setAttribute("class","list-group-item");
+
+                var dvlist = document.createElement('div');
+                dvlist.setAttribute("class","custom-control custom-checkbox");
+                
+                var checkbox = document.createElement('input');
+                checkbox.setAttribute("class","custom-control-input");
+                checkbox.type = 'checkbox';
+                checkbox.id = 'check_box' + data[i].id;
+                checkbox.name = 'check_box' + data[i].id;
+                checkbox.value = data[i].title;
+
+                if(data[i].completed === true){
+                    checkbox.checked = true;
+                    checkbox.disabled = true;
+                } 
+                else {
+                    checkbox.addEventListener("click", checkNumbers, false);
+                }               
+            
+                var label = document.createElement('label');
+                label.setAttribute("class","d-block custom-control-label");
+                label.htmlFor = 'check_box' + data[i].id;
+                label.appendChild(document.createTextNode(data[i].title));                                
+                
+                dvlist.appendChild(checkbox);
+                dvlist.appendChild(label);
+                list.appendChild(dvlist);
+                ulcontainer.appendChild(list);
+            }               
+        }
+    };
+    xhttp.send();    
+}
+
+
+var count = 0;
+function taskMessage(cnt){
+    if(cnt == 5){
+        alert("You Have completed 5 tasks succesfuly");
+    }
+}
+
+function checkNumbers(){
+    var chkBox = this;
     
+    let checkNumbersPromise = new Promise(function(resolve,reject){
+        if(chkBox.checked == true) {
+            resolve(++count);
+        }
+        else {
+            reject(--count);                     
+        }    
+    });
+
+    checkNumbersPromise.then(
+        function(value) { taskMessage(value);}
+    )  
+    .catch(
+        function(error) { 
+            alert("1 task deselected");
+        }
+    )
+          
 }
