@@ -1,29 +1,34 @@
+// Script for To-Do App
+
+// Login verification 
 function validateform(callback) {
     var uname = document.getElementById("username");
     var pswd = document.getElementById("password");
-    var err = document.getElementById("errmsg");
+    var errorMessage = document.getElementById("errorMessage");
 
     if(uname.value.trim() === ""){
-        err.innerHTML ="Please enter Username";
+        errorMessage.innerHTML ="Please enter Username";
         uname.focus();
     }
     else if (pswd.value.trim() === ""){
-        err.innerHTML = "Please enter Password";
+        errorMessage.innerHTML = "Please enter Password";
         pswd.focus();
     }
     else if(uname.value != 'admin' || pswd.value != '12345'){
-        err.innerHTML = "Username or password not matching.";
+        errorMessage.innerHTML = "Username or password not matching.";
     }
     else {
         callback();
     }
 }
 
+// login success -- navigate to main.html
 function loginsuccess(){
     window.location.replace("main.html");
+    
 }
 
-// todo page logout link click event for redirect to login page
+// logout -- navigate to index.html
 function logout(){
     window.location.replace("index.html");
 }

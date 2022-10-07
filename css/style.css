@@ -27,3 +27,16 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
+
+.navbar a {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px;
+}
+
+.navbar a:hover {
+    background-color: rgb(62, 112, 114);
+    color: rgb(255, 255, 255);
+    border-radius: 25px;
+}
