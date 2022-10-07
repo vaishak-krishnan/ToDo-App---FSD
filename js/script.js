@@ -85,6 +85,8 @@ var count = 0;
 function taskMessage(ticked){
     if(ticked == 5){
         alert("You Have completed 5 tasks succesfuly");
+        alert("Press OK to refresh your page");
+        location.reload();
     }
 }
 
